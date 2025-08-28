@@ -1,0 +1,40 @@
+<div class="todo-container">
+  <div class="todo-card">
+    <h2>Todo List</h2>
+    <p>Bạn có <strong>{{pendingTodos}}</strong> công việc chưa hoàn thành</p>
+
+    <!-- Form thêm mới Todo -->
+    <div class="add-todo-form">
+      <input type="text" [(ngModel)]="newTodoTitle" (keyup.enter)="addTodo()" placeholder="Nhập công việc mới..."
+        class="todo-input">
+      <button (click)="addTodo()" [disabled]="!newTodoTitle.trim()" class="add-button">
+        Thêm
+      </button>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="loading">
+      <p>Đang tải...</p>
+    </div>
+
+    <!-- Danh sách Todo -->
+    <div *ngIf="!isLoading" class="todo-list">
+      <div *ngFor="let todo of todos; trackBy: trackByTodo" class="todo-item">
+        <input type="checkbox" [checked]="todo.isDone" (change)="toggleTodo(todo)" class="todo-checkbox">
+
+        <span class="todo-title" [ngClass]="{'completed': todo.isDone}">
+          {{todo.title}}
+        </span>
+
+        <button (click)="deleteTodo(todo.id)" class="delete-button" title="Xóa công việc">
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <!-- Thông báo khi không có Todo -->
+    <div *ngIf="!isLoading && todos.length === 0" class="empty-state">
+      <p>🎉 Chưa có công việc nào. Hãy thêm công việc đầu tiên!</p>
+    </div>
+  </div>
+</div>

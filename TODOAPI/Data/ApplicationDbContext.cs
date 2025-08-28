@@ -7,13 +7,13 @@ using TODOAPI.models;
 
 namespace TODOAPI.Data
 {
-    public class ApplicationDbContext : DbContext
+  public class ApplicationDbContext : DbContext
+  {
+    public ApplicationDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
     {
-        public ApplicationDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
-        {
 
-        }
-
-        public DbSet<TodoModel> Todos { get; set; }
     }
+
+    public DbSet<TodoModel> Todos { get; set; }
+  }
 }
